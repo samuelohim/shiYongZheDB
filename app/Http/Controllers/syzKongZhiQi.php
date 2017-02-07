@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
 class syzKongZhiQi extends Controller
 {
     /**
@@ -14,6 +15,8 @@ class syzKongZhiQi extends Controller
     public function index()
     {
         //
+        $users = User::get();
+        return view('listusersB', compact('users'));
     }
 
     /**
@@ -56,7 +59,8 @@ class syzKongZhiQi extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('edituserb', compact('user'));
     }
 
     /**
@@ -68,7 +72,16 @@ class syzKongZhiQi extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        if ($request->has('name'))
+            $user->name = $request->input('name');
+        if ($request->has('email'))
+            $user->email = $request->input('email');
+        if ($request->has('password'))
+            $user->password = bcrypt($request->input('password'));
+        $user->save();
+        return redirect('/syz');
     }
 
     /**
