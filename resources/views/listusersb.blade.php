@@ -27,7 +27,13 @@
       					<span class="glyphicon glyphicon-wrench"></span>
       				</a>
       			</li>
-      			<li></li>
+      			<li>
+      				<form method = 'POST' action = '/syz/{{$user->id}}'>
+      				{!! csrf_field() !!}
+      				<input type = 'hidden' name = '_method' value = 'DELETE'>
+      				<button type = 'submit' class="btn btn-danger" href = '/syz/{{$user->id}}/edit'>
+      					<span class="glyphicon glyphicon-trash"></span>
+      				</button></li>
       			<li></li>
       		</ul>
       </td>
